@@ -199,25 +199,3 @@ def genesisHash(password):
     AA = RNA2aminoAcids(RNA)
 
     return AA
-
-
-password = "lemon"
-# start = perf_counter()
-# _hash = genesisHash(password)
-# end = perf_counter() - start
-# print(f'One 8 character password: {end} sec')
-# print(f'All 8 character passwords: {(end*95**3)/(60*60*24)} days')
-print(f'hash: {genesisHash(password)}\n')
-
-
-# counter = 0
-# for c1 in (chr(i) for i in range(32, 127)):
-#     for c2 in (chr(i) for i in range(32, 127)):
-#         for c3 in (chr(i) for i in range(32, 127)):
-#             if counter % 100000 == 0:
-#                 fname = 'bruteForce3CharPW_'+str(int(counter/100000))+'.txt'
-#             counter += 1
-#             with open(fname, 'a') as f:
-#                 password = c1+c2+c3
-#                 f.write(f'{password},{genesisHash(password)}\n')
-#                 print(f'{password},{genesisHash(password)}\n')
