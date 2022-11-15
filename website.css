@@ -1,0 +1,26 @@
+.icon-list li::before {
+    display: block;
+    flex-shrink: 0;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: .5rem;
+    content: "";
+    background: white ;
+  }
+
+
+  
+  .form-Input input[type="String"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .form-Output  {
+        margin-bottom: 10px;   
+        border-bottom-right-radius: 0;    
+        border-bottom-left-radius: 0;   
+        border: 2px solid green;     
+        width: 600px;     
+        display: contents;   }
+  
