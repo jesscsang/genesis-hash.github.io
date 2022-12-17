@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Untitled</title>
+    <style>
+        html {
+            line-height: 1.5;
+            font-family: Georgia, serif;
+            font-size: 20px;
+            color: #1a1a1a;
+            background-color: #fdfdfd;
+        }
+
+        body {
+            margin: 0 auto;
+            max-width: 36em;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            hyphens: auto;
+            overflow-wrap: break-word;
+            text-rendering: optimizeLegibility;
+            font-kerning: normal;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 0.9em;
+                padding: 1em;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: transparent;
+                color: black;
+                font-size: 12pt;
+            }
+
+            p,
+            h2,
+            h3 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            h2,
+            h3,
+            h4 {
+                page-break-after: avoid;
+            }
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        a {
+            color: #1a1a1a;
+        }
+
+        a:visited {
+            color: #1a1a1a;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 1.4em;
+        }
+
+        h5,
+        h6 {
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        h6 {
+            font-weight: normal;
+        }
+
+        ol,
+        ul {
+            padding-left: 1.7em;
+            margin-top: 1em;
+        }
+
+        li>ol,
+        li>ul {
+            margin-top: 0;
+        }
+
+        blockquote {
+            margin: 1em 0 1em 1.7em;
+            padding-left: 1em;
+            border-left: 2px solid #e6e6e6;
+            color: #606060;
+        }
+
+        code {
+            font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+            font-size: 85%;
+            margin: 0;
+        }
+
+        pre {
+            margin: 1em 0;
+            overflow: auto;
+        }
+
+        pre code {
+            padding: 0;
+            overflow: visible;
+            overflow-wrap: normal;
+        }
+
+        .sourceCode {
+            background-color: transparent;
+            overflow: visible;
+        }
+
+        hr {
+            background-color: #1a1a1a;
+            border: none;
+            height: 1px;
+            margin: 1em 0;
+        }
+
+        table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+            font-variant-numeric: lining-nums tabular-nums;
+        }
+
+        table caption {
+            margin-bottom: 0.75em;
+        }
+
+        tbody {
+            margin-top: 0.5em;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        th {
+            border-top: 1px solid #1a1a1a;
+            padding: 0.25em 0.5em 0.25em 0.5em;
+        }
+
+        td {
+            padding: 0.125em 0.5em 0.25em 0.5em;
+        }
+
+        header {
+            margin-bottom: 4em;
+            text-align: center;
+        }
+
+        #TOC li {
+            list-style: none;
+        }
+
+        #TOC ul {
+            padding-left: 1.3em;
+        }
+
+        #TOC>ul {
+            padding-left: 0;
+        }
+
+        #TOC a:not(:hover) {
+            text-decoration: none;
+        }
+
+        code {
+            white-space: pre-wrap;
+        }
+
+        span.smallcaps {
+            font-variant: small-caps;
+        }
+
+        div.columns {
+            display: flex;
+            gap: min(4vw, 1.5em);
+        }
+
+        div.column {
+            flex: auto;
+            overflow-x: auto;
+        }
+
+        div.hanging-indent {
+            margin-left: 1.5em;
+            text-indent: -1.5em;
+        }
+
+        ul.task-list {
+            list-style: none;
+        }
+
+        ul.task-list li input[type="checkbox"] {
+            width: 0.8em;
+            margin: 0 0.8em 0.2em -1.6em;
+            vertical-align: middle;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <h1 id="cdfa1-256-python-implementation">CDFA1-256 Python
+        Implementation</h1>
+    <pre class="py"><code>from math import floor
+
+def CDFA1_256_Hash(password):
+    remappedASCII_PW = strToRemappedASCII(password)
+    _hash = appendEvenOrOddIndices(
+        remappedASCII_PW, &quot;even&quot;) + appendEvenOrOddIndices(remappedASCII_PW, &quot;odd&quot;)
+
+    for i in range(3):
+        _hash = desiredHashLength(_hash)
+        _hash = intronSplicing(_hash)
+    _hash = desiredHashLength(_hash)
+
+    binary = decimalToBin(_hash)
+
+    RNA = binToRNA(binary)
+
+    AA = RNA2aminoAcids(RNA)
+
+    return AA
+    
+
+def remappedASCII(ASCII):
+    &quot;&quot;&quot;
+    95 Printable characters 32 - 126
+    https://en.wikipedia.org/wiki/ASCII
+    https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+
+    Remaps ASCII value to a unique 12-14 digit value (Tested).
+    &quot;&quot;&quot;
+    LEADING_ZERO = &quot;0&quot;
+
+    strASCII = str(ASCII)
+
+    # Use property of strings to separate ASCII digits
+    if ASCII &lt; 10:
+        # Single digit ASCII values
+        L_0 = L_1 = LEADING_ZERO
+        L_2 = strASCII
+    elif ASCII &lt; 100:
+        # Two digit ASCII values
+        L_0 = LEADING_ZERO
+        L_1, L_2 = strASCII
+    else:
+        # Three digit ASCII values
+        L_0, L_1, L_2 = strASCII
+
+    # Convert separate string digits back to int
+    L_0 = int(L_0)
+    L_1 = int(L_1)
+    L_2 = int(L_2)
+
+    &quot;&quot;&quot;
+    Before modulus:
+        min = 29124297227663 (14 digits)
+        max = 325620017749655509090396059873 (30 digits)
+    &quot;&quot;&quot;
+    return floor(floor(((L_0+3)**10 + (L_1+3)**10)/3) /
+                 (L_2+3))**3 % (10**14)
+
+
+def strToRemappedASCII(string):
+    resultASCII = &quot;&quot;
+    for char in string:
+        resultASCII += str(remappedASCII(ord(char)))
+    return resultASCII
+
+
+def appendEvenOrOddIndices(str, type=&quot;even&quot;, length=-1):
+    result = &quot;&quot;
+    i = 0
+    counter = 0
+    lengthReached = False
+    while (i &lt; len(str) and not lengthReached):
+        if (i % 2 == 0 and type == &quot;even&quot;):
+            result += str[i]
+            counter += 1
+        if (i % 2 != 0 and type != &quot;even&quot;):
+            result += str[i]
+            counter += 1
+        i += 1
+        if (length != -1 and counter == length):
+            lengthReached = True
+    return int(result)
+
+
+def intronSplicing(decimal, threshold=14):
+    &quot;&quot;&quot;
+    5&#39;-GU...AG-3&#39;
+    5&#39;-1001...0010-3&#39;
+    5&#39;-oeeo...eeoe-3&#39;
+    &quot;&quot;&quot;
+    strDecimal = str(decimal)
+    dnaLen = len(strDecimal)
+    if dnaLen &gt;= 8:
+        introns = []
+        startRemove = -1
+        endRemove = -1
+        startFound = False
+        endFound = False
+        result = &quot;&quot;
+        for i in range(dnaLen-7):
+            # Start of Intron
+            if (not startFound and
+                int(strDecimal[i]) % 2 == 1 and
+                int(strDecimal[i+1]) % 2 == 0 and
+                int(strDecimal[i+2]) % 2 == 0 and
+                    int(strDecimal[i+3]) % 2 == 1):
+                startRemove = i
+                startFound = True
+            # End of Intron
+            if (startFound and
+                int(strDecimal[i+4]) % 2 == 0 and
+                int(strDecimal[i+5]) % 2 == 0 and
+                int(strDecimal[i+6]) % 2 == 1 and
+                    int(strDecimal[i+7]) % 2 == 0):
+                endRemove = i+7
+                endFound = True
+            # Remove Intron
+            if endFound:
+                startFound = False
+                endFound = False
+                introns.append(strDecimal[startRemove:endRemove+1])
+
+        for intron in introns:
+            intronLen = len(intron)
+
+            # Remove intron if resulting string is long enough
+            if (dnaLen-intronLen &gt;= threshold):
+                dnaLen -= intronLen
+                strDecimal = strDecimal.replace(intron, &quot;&quot;)
+
+    return int(strDecimal)
+
+
+def desiredHashLength(_hash, hashLength=256):
+    while _hash &lt; 10**(hashLength*2*3*2):
+        &quot;&quot;&quot;
+        *2: takes two bits/digits to map to a DNA base 
+        *3: takes three DNA bases to map to a RNA codon
+        *2: double the length as appendEvenOrOddIndices() will reduce the length by at most half
+        &quot;&quot;&quot;
+        _hash = _hash**3
+
+    _hash = appendEvenOrOddIndices(str(_hash), &quot;odd&quot;, hashLength*2*3)
+    return _hash
+
+
+def decimalToBin(decimal):
+    strDecimal = str(decimal)
+    binary = &quot;&quot;
+    for i in range(len(strDecimal)):
+        binary += str(int(strDecimal[i]) % 2)
+    return binary
+
+
+def binToRNA(bin):
+    DNA_Result = &quot;&quot;
+    bin2DnaMap = {&quot;00&quot;: &quot;A&quot;, &quot;01&quot;: &quot;U&quot;, &quot;10&quot;: &quot;G&quot;, &quot;11&quot;: &quot;C&quot;}
+
+    for i in range(0, len(bin)-1, 2):
+        binaryPair = bin[i]+bin[i+1]
+
+        for key in bin2DnaMap:
+            if (key == binaryPair):
+                DNA_Result += bin2DnaMap[key]
+
+    return DNA_Result
+
+
+def RNA2aminoAcids(RNA):
+    aaResult = &quot;&quot;
+    RNA_Codons = {
+        # &#39;M&#39; - START, &#39;_&#39; - STOP
+        &quot;GCU&quot;: &quot;A&quot;, &quot;GCC&quot;: &quot;A&quot;, &quot;GCA&quot;: &quot;A&quot;, &quot;GCG&quot;: &quot;A&quot;,
+        &quot;UGU&quot;: &quot;C&quot;, &quot;UGC&quot;: &quot;C&quot;,
+        &quot;GAU&quot;: &quot;D&quot;, &quot;GAC&quot;: &quot;D&quot;,
+        &quot;GAA&quot;: &quot;E&quot;, &quot;GAG&quot;: &quot;E&quot;,
+        &quot;UUU&quot;: &quot;F&quot;, &quot;UUC&quot;: &quot;F&quot;,
+        &quot;GGU&quot;: &quot;G&quot;, &quot;GGC&quot;: &quot;G&quot;, &quot;GGA&quot;: &quot;G&quot;, &quot;GGG&quot;: &quot;G&quot;,
+        &quot;CAU&quot;: &quot;H&quot;, &quot;CAC&quot;: &quot;H&quot;,
+        &quot;AUA&quot;: &quot;I&quot;, &quot;AUU&quot;: &quot;I&quot;, &quot;AUC&quot;: &quot;I&quot;,
+        &quot;AAA&quot;: &quot;K&quot;, &quot;AAG&quot;: &quot;K&quot;,
+        &quot;UUA&quot;: &quot;L&quot;, &quot;UUG&quot;: &quot;L&quot;, &quot;CUU&quot;: &quot;L&quot;, &quot;CUC&quot;: &quot;L&quot;, &quot;CUA&quot;: &quot;L&quot;, &quot;CUG&quot;: &quot;L&quot;,
+        &quot;AUG&quot;: &quot;M&quot;,
+        &quot;AAU&quot;: &quot;N&quot;, &quot;AAC&quot;: &quot;N&quot;,
+        &quot;CCU&quot;: &quot;P&quot;, &quot;CCC&quot;: &quot;P&quot;, &quot;CCA&quot;: &quot;P&quot;, &quot;CCG&quot;: &quot;P&quot;,
+        &quot;CAA&quot;: &quot;Q&quot;, &quot;CAG&quot;: &quot;Q&quot;,
+        &quot;CGU&quot;: &quot;R&quot;, &quot;CGC&quot;: &quot;R&quot;, &quot;CGA&quot;: &quot;R&quot;, &quot;CGG&quot;: &quot;R&quot;, &quot;AGA&quot;: &quot;R&quot;, &quot;AGG&quot;: &quot;R&quot;,
+        &quot;UCU&quot;: &quot;S&quot;, &quot;UCC&quot;: &quot;S&quot;, &quot;UCA&quot;: &quot;S&quot;, &quot;UCG&quot;: &quot;S&quot;, &quot;AGU&quot;: &quot;S&quot;, &quot;AGC&quot;: &quot;S&quot;,
+        &quot;ACU&quot;: &quot;T&quot;, &quot;ACC&quot;: &quot;T&quot;, &quot;ACA&quot;: &quot;T&quot;, &quot;ACG&quot;: &quot;T&quot;,
+        &quot;GUU&quot;: &quot;V&quot;, &quot;GUC&quot;: &quot;V&quot;, &quot;GUA&quot;: &quot;V&quot;, &quot;GUG&quot;: &quot;V&quot;,
+        &quot;UGG&quot;: &quot;W&quot;,
+        &quot;UAU&quot;: &quot;Y&quot;, &quot;UAC&quot;: &quot;Y&quot;,
+        &quot;UAA&quot;: &quot;_&quot;, &quot;UAG&quot;: &quot;_&quot;, &quot;UGA&quot;: &quot;_&quot;
+    }
+
+    for i in range(0, len(RNA)-2, 3):
+        rnaCodon = RNA[i]+RNA[i+1]+RNA[i+2]
+        for key in RNA_Codons:
+            if (key == rnaCodon):
+                aaResult += RNA_Codons[key]
+    return aaResult</code></pre>
+</body>
+
+</html>

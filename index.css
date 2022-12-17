@@ -1,0 +1,40 @@
+body {
+  /*background-color: #505155;*/
+  background-color: rgb(41, 41, 41);
+  font-family: Menlo;
+  color: rgb(105, 227, 130);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.typed-out {
+  overflow: hidden;
+  white-space: nowrap;
+  animation:
+    typing 2s forwards;
+  font-size: 1.6rem;
+  width: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 100%
+  }
+}
+
+ul {
+  list-style-type: none;
+  color: rgb(105, 227, 130);
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+  color: rgb(105, 227, 130);
+  margin-right: 10px;
+}

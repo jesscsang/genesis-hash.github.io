@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>CDHA1-256 Statistics & Proof</title>
+  <style>
+    body {
+      /*background-color: #505155;
+      font-family: Menlo;
+      color: white;
+      margin: 0 auto;
+      max-width: 40em;
+      max-width: 100%;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;*/
+      background-color: #121212;
+      font-family: Menlo;
+      color: white;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .solution {
+      max-width: 47em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+
+      p,
+      h2,
+      h3 {
+        orphans: 3;
+        widows: 3;
+      }
+
+      h2,
+      h3,
+      h4 {
+        page-break-after: avoid;
+      }
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    a {
+      color: #1a1a1a;
+    }
+
+    a:visited {
+      color: #1a1a1a;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 1.4em;
+    }
+
+    h5,
+    h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+
+    h6 {
+      font-weight: normal;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+
+    li>ol,
+    li>ul {
+      margin-top: 0;
+    }
+
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+
+    .sourceCode {
+      background-color: transparent;
+      overflow: visible;
+    }
+
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    table caption {
+      margin-bottom: 0.75em;
+    }
+
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+
+    #TOC li {
+      list-style: none;
+    }
+
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+
+    #TOC>ul {
+      padding-left: 0;
+    }
+
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+
+    span.smallcaps {
+      font-variant: small-caps;
+    }
+
+    div.columns {
+      display: flex;
+      gap: min(4vw, 1.5em);
+    }
+
+    div.column {
+      flex: auto;
+      overflow-x: auto;
+    }
+
+    div.hanging-indent {
+      margin-left: 1.5em;
+      text-indent: -1.5em;
+    }
+
+    ul.task-list {
+      list-style: none;
+    }
+
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+      var mathElements = document.getElementsByClassName("math");
+      var macros = [];
+      for (var i = 0; i < mathElements.length; i++) {
+        var texText = mathElements[i].firstChild;
+        if (mathElements[i].tagName == "SPAN") {
+          katex.render(texText.data, mathElements[i], {
+            displayMode: mathElements[i].classList.contains('display'),
+            throwOnError: false,
+            macros: macros,
+            fleqn: false
+          });
+        }
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+
+<body
+  style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+  <div style="position:absolute;margin-top:10px;margin-left:10px;z-index:10;font-weight: bold;">
+    <ul style="list-style-type: none;margin: 0;padding: 0;">
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/index.html"
+          style="color: white;text-decoration: none;">Home</a></li>
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/overview.html"
+          style="color: white;text-decoration: none;">Overview</a></li>
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/statistics.html"
+          style="color: white;text-decoration: none;">Statistics & Proof</a></li>
+      <!-- <li><a href="https://andrew-musa.github.io/cpsc329/python-implementation.html"
+          style="color: white;text-decoration: none;">Python Implementation</a></li> -->
+      <li style="display: inline;margin-right:10px;"><a
+          href="https://andrew-musa.github.io/cpsc329/supplementary-materials.html"
+          style="color: white;text-decoration: none;">Supplementary Materials</a></li>
+    </ul>
+  </div>
+
+  <center>
+    <!--<div class="thesquare" style="text-align: center;">-->
+    <div class="solution" style="text-align: left;">
+      <h1 id="single-thread-brute-force-attack-time-analysis">Single Thread
+        Brute Force Attack Time Analysis</h1>
+      <p><span class="math display">
+          \begin{align}
+          &amp;\text{Number of Hashes Computed: } 526044 \text{~~hashes} \\
+          &amp;\text{Time Elapsed: } 21660.5585421999 \text{~~sec} \\
+          &amp;\text{Average Time Per Hash } = \frac{21660.5585421999}{526044} =
+          0.0411763246842468 \text{~~sec/hash} \\
+          &amp;\text{Time to Hash All 8 character Passwords } =
+          \frac{21660.5585421999}{526044} \times \frac{95^8}{60 \cdot 60 \cdot 24
+          \cdot 365} \\
+          &amp;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+          8662232.1 \text{~~ years} \\
+          \end{align}
+        </span></p>
+      <h1 id="hashing-similar-messages">Hashing Similar Messages</h1>
+      <pre
+        class="py"><code># Base message
+      CDFA1_256_Hash(&quot;The quick brown fox jumps over the lazy dog&quot;)
+      PRGSIAVAAGRRDVRVRPAISCS_QFVLLKLAILRGSMLSERRLAHCVWGVSLMLIYPRSGSVVFLKSSLT_DVRAWSPIGSIGYVCPSYPPTRPRRRCCDAEKCSSLGTFFKTE_IVTRGCPQTRLYY_AAHMHVVLSPAVSMRRVIRPDYVSPGTMKRQYSSNTISHSL_RHEIVS_AYFQLLSSWIDGLLLGRREQLLAGENMRLYQIYSMKGL_YAPIRVERVSEIIKGRNWTTTGQD_GTPRKPRYRLCFH</code></pre>
+
+      <pre
+        class="py"><code># Adding a period to the message
+      CDFA1_256_Hash(&quot;The quick brown fox jumps over the lazy dog.&quot;)
+      QSQRIREASCSSSCSLIR_WQDN_L_RCPRPLSHGCSCVPK_IR_RTCTQREQGLLAKVGKLLSKRSSSGMAAQMYFMLASFMANVIRSLASISDGSNSTFSFVPTKVAEPRHG_CIIMPVKNTITRVITTLPGRHQSISRGVSMKDNSCNTRVQTDAVEGLPYAFDS_YLWIPYPPDNKPTWIAHIFP_HWDWCFTMNVERIHRVETATTEALASRKISELPRSQRVRTATSSYRHINSLFPLTPGERTHTHGNY</code></pre>
+      <h1 id="probability-of-collision-assuming-uniform-distribution">Probability
+        of Collision Assuming Uniform Distribution</h1>
+      <ul>
+        <li>Suppose we have <span class="math inline">n</span> possible <span class="math inline">8</span> character
+          passwords and <span class="math inline">m</span> possible <span class="math inline">256</span> character
+          hashes. What is the probability
+          that at least two passwords will collide and have the same hash?
+          <ul>
+            <li><span class="math inline">\text{n passwords}</span>
+              <ul>
+                <li>ASCII has <span class="math inline">95</span> printable
+                  characters.</li>
+                <li>Since there are <span class="math inline">8</span> character is a
+                  password <span class="math inline">n = 95^8</span>.</li>
+              </ul>
+            </li>
+            <li><span class="math inline">\text{m hashes}</span>
+              <ul>
+                <li>There are <span class="math inline">20</span> different amino acids
+                  and <span class="math inline">1</span> nonsense codon thus there are
+                  <span class="math inline">21</span> possible characters that can be used
+                  in the hash.
+                  <ul>
+                    <li><span class="math inline">\text{char in hash} \in
+                        \{A,R,N,D,C,E,Q,G,H,I,L,K,M,F,P,S,T,W,Y,V,\_\}</span></li>
+                  </ul>
+                </li>
+                <li>Since there are 256 characters in a hash <span class="math inline">m
+                    = 21^{256}</span>.</li>
+              </ul>
+            </li>
+            <li>Suppose the passwords are labeled from <span class="math inline">1...n</span>.</li>
+            <li>Let <span class="math inline">E_{i,j}:\text{``password i and j
+                collide&quot;, } (i \ne j)</span>
+              <ul>
+                <li><span class="math inline">E_{i,j} = E_{j,i}</span></li>
+              </ul>
+            </li>
+            <li>Assuming uniform distribution:
+              <ul>
+                <li><span class="math inline">p(E_{i,j}) = \frac{1}{m}:</span> as
+                  regardless of what the hash of the first password is the second password
+                  must have the same hash.</li>
+              </ul>
+            </li>
+            <li><span class="math inline">E: \text{&quot;at least two passwords
+                collide&quot;}</span>
+              <ul>
+                <li>In other words a collision.</li>
+                <li>The event <span class="math inline">E</span> that at least two
+                  passwords collide also includes the cases where more than two passwords
+
+                  collide. <span class="math display">E = \bigcup_{1 \le i \lt j \le
+                    n}E_{i,j}</span></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p><span class="math display">
+          \begin{align}
+          p(E) = p(\bigcup_{1 \le i \lt j \le n}E_{i,j}) &amp;\le \sum_{1 \le i
+          \lt j \le n}p(E_{i,j}) \quad \text{(by the Union Bound)}\\
+          &amp;\le \sum_{1 \le i \lt j \le n}\frac{1}{m} \\
+          &amp;\le {n \choose 2} \cdot \frac{1}{m} \\
+          &amp;\le \frac{n!}{2!(n-2)!} \cdot \frac{1}{m} \\
+          &amp;\le \frac{n(n-1)(n-2)!}{2(n-2)!} \cdot \frac{1}{m} \\
+          &amp;\le \frac{n(n-1)}{2} \cdot \frac{1}{m} \\
+          &amp;\le \frac{n(n-1)}{2m} \\
+          &amp;\lt \frac{n^2}{2m} \\
+          &amp;\lt \frac{(95^8)^2}{2 \cdot 21^{256}} \approx 7.1517 \times
+          10^{-308}
+          \end{align}
+        </span></p>
+
+
+
+
+</body>
+
+</html>

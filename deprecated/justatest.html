@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Untitled</title>
+    <style>
+        html {
+            line-height: 1.5;
+            font-family: Georgia, serif;
+            font-size: 20px;
+            color: #1a1a1a;
+            background-color: #fdfdfd;
+        }
+
+        body {
+            font-size: 16px;
+            margin: 0;
+            font-family: Menlo;
+            color: white;
+            background-color: rgb(41, 41, 41);
+            overflow-x: hidden;
+        }
+        .solution {
+            max-width: 45em;
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            hyphens: auto;
+            overflow-wrap: break-word;
+            text-rendering: optimizeLegibility;
+            font-kerning: normal;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 0.9em;
+                padding: 1em;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: transparent;
+                color: black;
+                font-size: 12pt;
+            }
+
+            p,
+            h2,
+            h3 {
+                orphans: 3;
+                widows: 3;
+            }
+
+            h2,
+            h3,
+            h4 {
+                page-break-after: avoid;
+            }
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        a {
+            color: #1a1a1a;
+        }
+
+        a:visited {
+            color: #1a1a1a;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 1.4em;
+        }
+
+        h5,
+        h6 {
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        h6 {
+            font-weight: normal;
+        }
+
+        ol,
+        ul {
+            padding-left: 1.7em;
+            margin-top: 1em;
+        }
+
+        li>ol,
+        li>ul {
+            margin-top: 0;
+        }
+
+        blockquote {
+            margin: 1em 0 1em 1.7em;
+            padding-left: 1em;
+            border-left: 2px solid #e6e6e6;
+            color: #606060;
+        }
+
+        code {
+            font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+            font-size: 85%;
+            margin: 0;
+        }
+
+        pre {
+            margin: 1em 0;
+            overflow: auto;
+        }
+
+        pre code {
+            padding: 0;
+            overflow: visible;
+            overflow-wrap: normal;
+        }
+
+        .sourceCode {
+            background-color: transparent;
+            overflow: visible;
+        }
+
+        hr {
+            background-color: #1a1a1a;
+            border: none;
+            height: 1px;
+            margin: 1em 0;
+        }
+
+        table {
+            margin: 1em 0;
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: auto;
+            display: block;
+            font-variant-numeric: lining-nums tabular-nums;
+        }
+
+        table caption {
+            margin-bottom: 0.75em;
+        }
+
+        tbody {
+            margin-top: 0.5em;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        th {
+            border-top: 1px solid #1a1a1a;
+            padding: 0.25em 0.5em 0.25em 0.5em;
+        }
+
+        td {
+            padding: 0.125em 0.5em 0.25em 0.5em;
+        }
+
+        header {
+            margin-bottom: 4em;
+            text-align: center;
+        }
+
+        #TOC li {
+            list-style: none;
+        }
+
+        #TOC ul {
+            padding-left: 1.3em;
+        }
+
+        #TOC>ul {
+            padding-left: 0;
+        }
+
+        #TOC a:not(:hover) {
+            text-decoration: none;
+        }
+
+        code {
+            white-space: pre-wrap;
+        }
+
+        span.smallcaps {
+            font-variant: small-caps;
+        }
+
+        div.columns {
+            display: flex;
+            gap: min(4vw, 1.5em);
+        }
+
+        div.column {
+            flex: auto;
+            overflow-x: auto;
+        }
+
+        div.hanging-indent {
+            margin-left: 1.5em;
+            text-indent: -1.5em;
+        }
+
+        ul.task-list {
+            list-style: none;
+        }
+
+        ul.task-list li input[type="checkbox"] {
+            width: 0.8em;
+            margin: 0 0.8em 0.2em -1.6em;
+            vertical-align: middle;
+        }
+    </style>
+    <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            var mathElements = document.getElementsByClassName("math");
+            var macros = [];
+            for (var i = 0; i < mathElements.length; i++) {
+                var texText = mathElements[i].firstChild;
+                if (mathElements[i].tagName == "SPAN") {
+                    katex.render(texText.data, mathElements[i], {
+                        displayMode: mathElements[i].classList.contains('display'),
+                        throwOnError: false,
+                        macros: macros,
+                        fleqn: false
+                    });
+                }
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+</head>
+
+<body>
+<div style="position:absolute;margin-top:10px;margin-left:10px;z-index:10;">
+    <ul style="list-style-type: none;margin: 0;padding: 0;">
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/index.html"
+          style="color: rgb(105, 227, 130);text-decoration: none;">Home</a></li>
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/statistics.html"
+          style="color: rgb(105, 227, 130);text-decoration: none;">Statistcis & Proofs</a></li>
+      <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/overview.html"
+          style="color: rgb(105, 227, 130);text-decoration: none;">Overview</a></li>
+        <li style="display: inline;margin-right:10px;"><a href="https://andrew-musa.github.io/cpsc329/supplementary-materials.html" style="color: rgb(105, 227, 130);text-decoration: none;">Supplementary Materials</a></li>
+    </ul>
+  </div>
+
+
+
+    <center><div class="solution">
+    <h1 id="step-by-step-overview-of-central-dogma-algorithm">Step-by-Step
+        Overview of Central Dogma Algorithm</h1>
+    <ul>
+        <li>Let <span class="math inline">s</span> be the input string and <span class="math inline">h</span> be product
+            string of the intermediate steps
+            as well as the output hash with <span class="math inline">256</span>
+            characters.</li>
+        <li>The string <span class="math inline">s = ``password&quot;</span>
+            will be used in the running example.</li>
+    </ul>
+    <h2 id="step-1-convert-the-input-string-to-a-decimal-string">Step 1:
+        Convert the Input String to a Decimal String</h2>
+    <ul>
+        <li>Each character of the input string <span class="math inline">s</span> is converted into its ASCII decimal
+            representation and then remapped to a unique <span class="math inline">12</span>-<span
+                class="math inline">14</span> digit
+            number (<em>See <strong><a href="https://andrew-musa.github.io/cpsc329/supplementary-materials.html" style="color:white;">Table S1</a></strong> in the Supplementary Materials
+                for Proof</em>) using the formula below.
+            <ul>
+                <li><span class="math display">remapASCII(L_0L_1L_2) = \lfloor
+                        \frac{\lfloor \frac{(L_0+3)^{10} + (L_1+3)^{10}}{3} \rfloor}{L_2+3}
+                        \rfloor ^3 \text{ mod } 10^{14}</span></li>
+                <li>where <span class="math inline">L_0L_1L_2</span> are the digits in
+                    the decimal representation of the ASCII character</li>
+                <li>if the decimal representation for the ASCII character is:
+                    <ul>
+                        <li>two digits a leading zero is added</li>
+                        <li>single digit two leading zeros are added</li>
+                    </ul>
+                </li>
+            </ul>
+            <strong><u>Note:</u></strong>
+            <ul>
+                <li>
+                    <p>We only care about the <span class="math inline">95</span>
+                        printable characters of ASCII which have decimal representations from
+                        <span class="math inline">32</span>-<span class="math inline">126</span>
+                    </p>
+                </li>
+                <li>
+                    <p><em>eg.</em> <span class="math inline">h = 104</span></p>
+                </li>
+            </ul>
+            <span class="math display">
+                \begin{align}
+                remapASCII(L_0L_1L_2) &amp;= \lfloor \frac{\lfloor \frac{(L_0+3)^{10}
+                + (L_1+3)^{10}}{3} \rfloor}{L_2+3} \rfloor ^3 \text{ mod } 10^{14} \\
+                remapASCII(104) &amp;= \lfloor \frac{\lfloor \frac{(1+3)^{10} +
+                (0+3)^{10}}{3} \rfloor}{4+3} \rfloor ^3 \text{ mod } 10^{14} \\
+                &amp;= 32843155141000 \\
+                \end{align}
+            </span>
+        </li>
+        <li>The remapped numbers are then concatenates together in intermediate
+            decimal string <span class="math inline">h</span>.</li>
+    </ul>
+    <p><strong>Running Example:</strong></p>
+    <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:70px;max-width: 50em;">32843155141000  76310579997029  67192309327341  67192309327341  97686610171064  37538474618728  95925546284544  64000460137509</div></span>
+    </p>
+    <h2 id="step-2-partition-the-decimal-string-and-recombine-it">Step 2:
+        Partition the Decimal String and Recombine it</h2>
+    <ul>
+        <li>The intermediate decimal string <span class="math inline">h</span>
+            is treated like an array then partitioned into two strings: <span class="math inline">h_{even}</span> and
+            <span class="math inline">h_{odd}</span>.
+            <ul>
+                <li><span class="math inline">h_{even}:</span> concatenates the digits
+                    with an even index</li>
+                <li><span class="math inline">h_{odd}:</span> concatenates the digits
+                    with an odd index</li>
+            </ul>
+        </li>
+    </ul>
+    <p><span class="math display">
+            \begin{align}
+            h &amp;= h_0h_1...h_n \\
+            h_{even} &amp;= h_0h_2...h_{2k} \quad (\text{where }k \in \mathbb{N}) \\
+            h_{odd} &amp;= h_1h_3...h_{2k+1}
+            \end{align}
+        </span></p>
+    <ul>
+        <li>The two strings <span class="math inline">h_{even}</span> and <span class="math inline">h_{odd}</span> are
+            added together using integer
+            addition to create the decimal string <span class="math inline">h =
+                h_{even} + h_{odd}</span>.</li>
+    </ul>
+    <p><strong>Running Example:</strong></p>
+    <p><span class="math display">
+            \begin{align}
+            h_{even} &amp;= 38351107307972612037461203749661116358768299542446006170
+            \\
+            h_{odd} &amp;= 38351107307972612037461203749661116358768299542446006170
+            \\
+            h &amp;= h_{even} + h_{odd} \\
+            &amp;= 62505113467882405960640596067521821093186152110990046529 \\
+            \end{align}
+        </span></p>
+    <h2 id="step-3-expand-and-discard-segments-of-the-decimal-string">Step
+        3: Expand and Discard Segments of the Decimal String</h2>
+    <ul>
+        <li>This following steps will be repeated <span class="math inline">3</span> times:
+            <ul>
+                <li><strong>Step 3.1:</strong> The intermediate decimal string <span class="math inline">h</span> will
+                    be cubed <span class="math inline">m
+                        \in \mathbb{N}</span> times till it is greater than <span class="math inline">10^{3072}</span>.
+                    <ul>
+                        <li><span class="math inline">h^{3^m} &gt; 10^{3072}</span></li>
+                    </ul>
+                </li>
+                <li><strong>Step 3.2:</strong> The resulting string <span class="math inline">h^{3^m}</span> will be
+                    treated like an array then
+                    partitioned as follows:
+                    <ul>
+                        <li><span class="math inline">h_{odd} = h_1h_3...h_{3071}</span></li>
+                        <li><span class="math inline">|h_{odd}| = 1536</span></li>
+                    </ul>
+                </li>
+                <li><strong>Step 3.3:</strong> The resulting decimal string <span class="math inline">h_{odd}</span>
+                    will be processed as follows:
+                    <ul>
+                        <li>
+                            <p>If <span class="math inline">h_{odd}</span> has a substring that
+                                start and end with the following sequence of even and odd digits then
+                                that substring will be removed from <span class="math inline">h_{odd}</span> if and only
+                                if the resulting string
+                                has a length greater than or equal to <span class="math inline">14</span>.</p>
+                            <ul>
+                                <li>Let <span class="math inline">o</span> be an odd digit and <span
+                                        class="math inline">e</span> be an even digit</li>
+                                <li><strong>Start:</strong> <span class="math inline">oeeo</span></li>
+                                <li><strong>End:</strong> <span class="math inline">eeoe</span></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>These segments will be removed in the order they appear as long
+                                as the resulting string has greater than or equal to <span class="math inline">14</span>
+                                digits.</p>
+                        </li>
+                        <li>
+                            <p>eg. <span class="math display">
+                                    \begin{align}
+                                    h_{odd} &amp;= 9oeeo...eeoe944oeeoeeoe44 \\
+                                    h_{odd}&#39; &amp;= 9944oeeoeeoE44 \\
+                                    \end{align}
+                                </span></p>
+                            <p><strong><u>Note:</u></strong></p>
+                            <ul>
+                                <li>The segment between the <span class="math inline">9</span>’s are
+                                    removed as the resulting string will have at least <span
+                                        class="math inline">14</span> digits.</li>
+                                <li>The segment between the <span class="math inline">4</span>’s are not
+                                    removed as the resulting string will not have more than <span
+                                        class="math inline">14</span> digits.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Step 3.4:</strong> The final <span class="math inline">h&#39;_{odd}</span> string will be
+                    fed back into
+                    <strong>Step 3.1</strong> as <span class="math inline">h</span>.
+                </li>
+            </ul>
+        </li>
+        <li><span style="color:aquamarine;background:none"><strong><em>Biological
+                        Inspiration:</em></strong></span> In the central dogma, premature mRNA
+            is converted into mature mRNA by slicing out the introns (non-coding
+            region of mRNA) and joining the ends of the exons (coding mRNA that is
+            translated/converted into aminoacids). Introns have a specific start and
+            end sequence. The <span class="math inline">GU</span> dentoes the start
+            of the intron and <span class="math inline">AG</span> denotes the end of
+            the intron. We used this biological mechanism in our algorithm to remove
+            sections of our decimal string. We converted the intron’s start and end
+            sequences to binary using our bit string to mRNA base mapping (See Table
+            in <strong>Step 6</strong>). From there the binary sequence was mapped
+            into a sequence of even and odd numbers where each <span class="math inline">1</span> would be an odd number
+            and each <span class="math inline">0</span> would be an even number.</li>
+        <li><span style="color:deeppink;background:none"><strong><em>Property of
+                        Hash Algorithm:</em></strong></span> In this step of the algorithm
+            information about the original string <span class="math inline">s</span>
+            is loss through partioning <span class="math inline">h</span> and
+            keeping only <span class="math inline">h_{odd}</span> as well as the
+            removal of sections of <span class="math inline">h_{odd}</span>. This is
+            one of the features that makes the algorithm a <strong>one-way</strong>
+            function.</li>
+    </ul>
+    <strong>Running Example:</strong>
+     <h3>Step 3.1 - Iteration 1</h3> <p><span class="math inline">h^{3m} =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">29455023955971493158465506934887152225679882040403369047734860409397579977655858696435267026189383154770134334940889933119714592433362258304052591901010799907752029494601666188946434633881549401483032437477561266749273315741430220752615387667903957596530897306047733108657179462654522835793038684939343849636028599728384327075643868015921389978750941459707919654800485557948170629553334315725716509129141259229295332436878614794207247684895891772616147374237671020627920388280347959243407295658572523346958519543481347161937863366201410973694775717399660805234508819014595374738089602800414796480180541913850223120940334177054992209276510713981599474392140023271095413481019784743141834628712250780989813105866141615319097237770251106679077318912580285348825468290886900231934153704704137271818400684468965365466492395923664743833184056043459211057604139268448562698969103054055043508489642419886724000769345693652771107691667665855049413957279205437390396266396964857738579147880080600795125698959096506868080068787943284269950748492060959738556278087121196565821011045331314540100664135462082863619381329721955756140109689620118803138160990001471389255921198128778875481710531363334819682704922814837708174910679365438996029050509882467059779745842436586020811394348018051406344616875015823424710446954888998111087072801990286445995739188204166949145873143585578600535395985856272996073770630377148337301125263827686416804729534861350553882234253910757097207632337676231611075376112595311231410414281292127114249619384988367406889075994544867079400112927214599888588341638011260940022817969764664657271114513666039109750507045178590361094321875168841983242625105058970664935301392478446515942755275516524973986345022401942543433958724720834924698753988053934838258587464681873968887278185723319454866451434958555939647726227538554840425735942341205665387646631693160477913902093578420712502834389407425880465773682456227033144809264545735050107607935692969055584473505022715669348949467083285118787771947451094841000866398899912310088172630890206394873442572299693397617771241366585206880090953770055417604001183941391026106370633267861031356571116857016850813673545463394597091081355428173528750373535794206373579021595606273895306860128850924240236492794198121832810299933905352505506237319866811520785186154966560196479444501311722272339716889498906465768848947674206797443127286643778494672278630131992012530460970237208882648121071163863496614069034379397768279474086157327925270861544077071028172057836868463588176277597839797864483099598637183468833180464817099963410653680839264615460971992509779313112311695708435155696242234105953683861700281230978740545707765176171054334924746425193465137708055618602581130697929778211025602660135600584042848555752749546744923012260117295946255851919148700627456424942125836708809435740815127652332832052585857152302394742155468922711258198023080130888138412228138963757476837833866413510551090614471235705392918873167319680031308218054816194556094969162021341357263359627989062400802563805386068505068577058716771197717186362004662677405334334554162319301822179006465528885727548200724501370501454748421692155937232190768341561520733191601517163625624305226272420096140658910505174297685377053303138812477684752145338883691930725115093103293438185252670069750563254853026384964352660358741004681994182841422432825082734464867191567767552064931922721018163596702845867191510084876109617710995945122158266523067466063877150880928102772634351463368510992329565295659334752458038211090018395223676053190220005653822685160021482048223011270768300552276268330746366984032558168673513887310609689563831887027410179683304795036012340109466120395297179638792166149615633659639934621096148569620391802476290107602748167834686295518736677178053941128687926454260778737550256078545011828186558950430935745246234643494412680061498067371668897999602492681430302474217096036141668987880912991255826922214223962319402821832440188174029608776739762685185946824032729894300129866012717449134637297351119833426382086445690461385947498299319966658908440440087544416968017131730196778473608878564853758179223873106015486817907257216097251240317632184036483190754744733953241792850157028636968678659915486582260724319240571085806799794328084489879196194359792452093293951625506652240056969531298796121192211446496852829850319895207283262122145106438107237456586290334029286301607978301118508420298314084176875628728699216236232797140030167067428647347272155086032105135565635631735628900292929</div></span>
+    </p>
+    <h3 id="step-3.2---iteration-1">Step 3.2 - Iteration 1</h3>
+    <p><span class="math inline">h_{odd} =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">950359191865638752578244360738003779758894560683357033448931915233253455100099750996161844438144180234762642317132056586709795093647306774255237336433346625923420548819189859157716404559876953417515921152993238817402788597211772770029082049944796875349815383769763604076477796002408915577886204494085118021043470492975019194491022194380987348427257088308646510737051670719282548562089039457401778806469564693526448380644910701964866861350545886218620063596271796768544352904793663668735948086091599995660067742469044269935670721668110533441061560266983929551006921801869004182521827874115163416209218701416964890955984757948235628193810103418518327049489810778192649531801641571385805599552290376071833122326618425463058232317792733772110571293134012191712913483708979448774019715985846812040219966452115360907000575060428568182221559069503274619252515479640209244357428426859859432884488368771523958654455536722735444539242563746191079300374015233904584576252731402447551709599955475527563844782517779750440063899210876092698345296396772165508099370516401343121676368133671650658375563490183521327075592675925502393661859442697491138099303205633968127581465094945117273918999667849772694322647896276039215069032886820168396460473762970653722065470121258664381675737764395831368384410964056032414079207911216504556642409388102139845507571153427621361700516281099972126261505448857245649312012542559947024629228608937011753230288753297254827151820038834221867778738615050014137599871716033810411450461223152356780208268580800870817197783</div></span>
+    </p>
+    <h3 id="step-3.3---iteration-1">Step 3.3 - Iteration 1</h3>
+    <p><span class="math inline">h&#39;_{odd} =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">9503591907380037797762642317197950936473067742552373364333466259234205488191898591577164045598769534175159211529932859721177277002908204947779600240891557788620449408511802975019194491022194570883086465107370516707192823945064491070196486686135054588621862006354352904794426993567072166811053392955100692047411516341620921870141696489095589810778192649533760718334231779273377211057129310402199664521158182221559069503274619252515479640209244357428426859859432884488455536722735444539242563452517779750440063893755634901835213270755926759255023933949451172739189932264783288682070121258664381675737441096400792079112165045566424092136170051628109997212626150544885542559947024629228608937011753230288753297254827151820067778738615023152356780208268580800870817197783</div></span>
+    </p>
+    <p><span class="math inline">...</span></p>
+    <h3 id="final-output-of-step-3">Final Output of Step 3</h3>
+    <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">621277331570374465702733536540608552121632203715247930621120556277193294597028280896220303206223330600804650551612725302043850342033389982345286707618137721470171983743492990605596762514875359000684408987167456135964067005307200286974666804612681968201957283666821527748119833529750837969048026206503477469251668824582610358629226428675965553509204829653611351315166264525937804844281971519345924264956300938549171872743556257718775480277358738113124230586089398301354904755326666068903585726622128051929974545369199929943513803108910359331315365806928001071505846891380238382609771734097142836605753676597944291470748792204740259670135166210800126073571206759454940379719505329387782291774946394570334</div></span>
+    </p>
+    <h2 id="step-4-expand-decimal-string-to-desired-length">Step 4: Expand
+        Decimal String to Desired Length</h2>
+    <ul>
+        <li>The decimal string <span class="math inline">h</span> will be cubed
+            <span class="math inline">m \in \mathbb{N}</span> times till it is
+            greater than <span class="math inline">10^{3072}</span>.
+            <ul>
+                <li><span class="math inline">h^{3^m} &gt; 10^{3072}</span></li>
+            </ul>
+        </li>
+        <li>The resulting string <span class="math inline">h^{3^m}</span> will
+            be segmented as follows:
+            <ul>
+                <li><span class="math inline">h = h_0h_1...h_n</span></li>
+                <li><span class="math inline">h_{odd} = h_1h_3...h_{3071}</span></li>
+                <li><span class="math inline">|h_{odd}| = 1536</span></li>
+            </ul>
+        </li>
+        <li><span style="color:deeppink;background:none"><strong><em>Property of
+                        Hash Algorithm:</em></strong></span>
+            <ul>
+                <li>In this step of the algorithm information about the original string
+                    <span class="math inline">s</span> is loss through partioning <span class="math inline">h</span> and
+                    keeping only <span class="math inline">h_{odd}</span> as well as the removal of sections of
+                    <span class="math inline">h_{odd}</span>. This is one of the features
+                    that makes the algorithm a <strong>one-way</strong> function.
+                </li>
+                <li>This step of the algorithm also ensure that the digest is of a
+                    <strong>fixed length</strong> by partioning <span class="math inline">h</span> and keeping only
+                    <span class="math inline">h_{odd}</span> of a certain length.
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <strong>Running Example:</strong> <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">391849729260302623451521300865839200874071563738281503557438024950746543896717699036673573439621639619001242113433425118980562412709900233298831857654199285723533019121895291320074144176440369963229138731745878017510169794324568743258826464559717094996452765863757432946569826848625362980203054332205968011357581323451558702787011546405760577103681357165619286050174330924335018643800411161897623161923033915721545278184522292113961541193104212475126747850454903882656401479768789686504699021710663958424456231860047792168484419255698540172076674251469981593799676268938316054108672067439487993989491147073695112796526386066779180558735363173987309558851155245945346644674364251847763132003186344826623795222434962384938471554989776357711012717139132583485256174773141177288011716232924839159431975951356805171104993617772297210494022670691792486829193494239297153489520805176504290692380547866649124698179108496187659538562083399339471925083562494909141127937642710589574082709936348898953643251772619697102474624854058832264633183807824295511288951554932764122751114218742876841988070177760516991049879447048134910284948207180945724370121313579144878819454076979945673538908240425263641591254704699032069213322191500506172050224843871329508627042605670988007163334891708555394176061823358052105496434433917963662656695370967542421796466348330916147522912204796073650785209742241610987036056384703454559388252536739777706003907460922199823502288649113964159479744927191172367102610390152231458835235175463495921042796874427622285132431</div></span>
+    </p>
+    <h2 id="step-5-convert-decimal-string-into-bit-string-with-the-same-number-of-digits">Step
+        5: Convert Decimal String into Bit String with the same number of
+        Digits</h2>
+    <ul>
+        <li>The decimal string <span class="math inline">h</span> is converted
+            into a bit string as follows:
+            <ul>
+                <li>If a digit in <span class="math inline">h</span> is even it will be
+                    replaced with <span class="math inline">0</span>.</li>
+                <li>If a digit is <span class="math inline">h</span> is odd it will be
+                    replaced with <span class="math inline">1</span>.</li>
+                <li>eg.
+                    <ul>
+                        <li><span class="math inline">h = 01654 \Rightarrow h&#39; =
+                                01010</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><span style="color:deeppink;background:none"><strong><em>Property of
+                        Hash Algorithm:</em></strong></span> In this step of the algorithm
+            information about the original string <span class="math inline">s</span>
+            is loss through grouping of even and odd numbers in its conversion to
+            binary. This is one of the features that makes the algorithm a
+            <strong>one-way</strong> function.
+        </li>
+    </ul>
+    <strong>Running Example:</strong> <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">111001101000100001011101100001011000010011101110001101111010000110100101010111011010011111011001011011001000111011001110100100010101100011010011011010111001101111011101011011100010100110000101101001110111101010011110101110100100101010000000111111010110010101001111010100101000000001100100001010110001100011111101101011110100101011100001100111101001111101011000010110110100111010001000011101011001101101011111101101010100100010111101101111100010011100101010010101000010001011100101000100011001110001110000010011000001110100000011011010100110010010011001101111111010000110110010100010001011001111101011101011011110110100100000111100110111101111101101110011111001101100000010100011001101110001100100000001111000010100100110011110101110111111010111111110101001010110111101111000011110010100011111011111111110001111100111011110011010010000010011110000001111010011011111001100001110100010010100101000001100010111100010101011110100001111111011101001100010101101101111000110101110000101110100010111001011110011011100010000010010010000011101001000011111000111110110100100111110010100010001100010111100110111001011001000110110000100001100101100110101111111100010011010010111101011110100000001001001111010100011010001011100111100100110010000001011101100001000001010100001101110011100111110110001001110010101010010011111101000010011110101100001110000100110110101100110000110011010101001100001010101010010100101010111100010110111111100001101000100111001100000001111100111011100101111110101100010110110011010011011111001011101000110010001000001110011</div></span>
+    </p>
+    <h2 id="step-6-convert-bit-string-into-mrna-string">Step 6: Convert Bit
+        String into mRNA String</h2>
+    <ul>
+        <li>The bit string is remapped using the following table:</li>
+    </ul>
+    <table>
+        <thead>
+            <tr class="header">
+                <th style="text-align: center;border-color:white;">2-bit string</th>
+                <th style="text-align: center;border-color:white;">RNA base</th>
+            </tr>
+        </thead>
+        <tbody style="border-color:white;">
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">00</span></td>
+                <td style="text-align: center;"><span class="math inline">A</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">01</span></td>
+                <td style="text-align: center;"><span class="math inline">U</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">10</span></td>
+                <td style="text-align: center;"><span class="math inline">G</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">11</span></td>
+                <td style="text-align: center;"><span class="math inline">C</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <ul>
+        <li><span style="color:aquamarine;background:none"><strong><em>Biological
+                        Inspiration:</em></strong></span> In the central dogma, mRNA is consists
+            of <span class="math inline">4</span> base pairs: adenine
+            (<code>A</code>), cystosine (<code>C</code>), uracil (<code>U</code>),
+            and guanine (<code>G</code>). We drew inspiration from these mRNA bases
+            to encode our binary string using the mapping in the table above.</li>
+    </ul>
+    <p><strong>Running Example:</strong></p>
+    <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">CGUGGAGAUUCUGAUUGAUACGCGACUCGGAUGGUUUUCUGGUCCUGUUGCAGACGCACGGUAUUUGACUACUGGCGUGCCUCUUGCGAGGUGAUUGGUCUCGGGUCGGCGGUAGGGAAACCCUUGUUUACCUUAGGAAAUGUAAGGCAUGACCCUGGCCUAGGCGAUGUCGGUCCUUGAUUGCUACGGAGAUCUUGUGCUUCCGCUUUAGAGCCUGCCGAGUCAGGGUUUAAGAGCGUUAUAUGUCAUCAAUACAAUCUAAACUGGGUGUAGUGUGCCCGGAUGCAGGAGAGCACCGGCGGCUCGCUAGAACCACUCGCCGCUCACCGUGCAAAGGACACUCAUGUAAAUCGAUUAGUGUCGGCGCCCUUCCCGGGUUUGCCUCGAUCGUUAUCCUCCCCGACCGUCUCGUGGUAAUACCAAACCUACUCCACAACGGAGUUAGGAACAUUCGAGGGCCUAACCCGCGGUGAGGCUGCCAUGGCGAUUCUAUUCAGCCACUCAUAAUAGUAAUCUAGAUCCAUCCUGGUACCGUUAUAUGAGCCACUCAGCAGACUGAUAACAGCACUUCCCGAGUGGUUCGGCCUAAAUAGUCGGGACUAUUCACCAGUGUAAAGCGCAAGAAGGGAUGCGUCACCGCAUACGUUUUAGUCCGGAUACCUUGAUCAAGUGCUUGUGAUGUGGGGUGAUUUUUAGGUUUUCGAGCUCCCAACUAUACGUGAAACCGUCUCAGCCCUUGAGCUGUGGUGCCGUUCUAUGUAUAAUCAC</div></span>
+    </p>
+    <h2 id="step-7-convert-mrna-string-to-amino-acid-string">Step 7: Convert
+        mRNA String to Amino Acid String</h2>
+    <ul>
+        <li>The mRNA string will be remapped using the following table:</li>
+    </ul>
+    <table>
+        <thead>
+            <tr class="header">
+                <th style="text-align: center;border-color:white;">Amino Acid</th>
+                <th style="text-align: center;border-color:white;">RNA Codon</th>
+            </tr>
+        </thead>
+        <tbody style="border-color:white;">
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">A</span></td>
+                <td style="text-align: center;"><span class="math inline">GCU, GCC, GCA,
+                        GCG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">L</span></td>
+                <td style="text-align: center;"><span class="math inline">CUU, CUC, CUA,
+                        CUG, UUA, UUG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">R</span></td>
+                <td style="text-align: center;"><span class="math inline">CGU, CGC, CGA,
+                        CGG, AGA, AGG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">K</span></td>
+                <td style="text-align: center;"><span class="math inline">AAA,
+                        AAG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">N</span></td>
+                <td style="text-align: center;"><span class="math inline">AAU,
+                        AAC</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">M</span></td>
+                <td style="text-align: center;"><span class="math inline">AUG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">D</span></td>
+                <td style="text-align: center;"><span class="math inline">GAU,
+                        GAC</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">F</span></td>
+                <td style="text-align: center;"><span class="math inline">UUU,
+                        UUC</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">C</span></td>
+                <td style="text-align: center;"><span class="math inline">UGU,
+                        UGC</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">P</span></td>
+                <td style="text-align: center;"><span class="math inline">CCU, CCC, CCA,
+                        CCG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">Q</span></td>
+                <td style="text-align: center;"><span class="math inline">CAA,
+                        CAG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">S</span></td>
+                <td style="text-align: center;"><span class="math inline">UCU, UCC, UCA,
+                        UCG, AGU, AGC</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">E</span></td>
+                <td style="text-align: center;"><span class="math inline">GAA,
+                        GAG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">T</span></td>
+                <td style="text-align: center;"><span class="math inline">ACU, ACC, ACA,
+                        ACG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">E</span></td>
+                <td style="text-align: center;"><span class="math inline">GAA,
+                        GAG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">W</span></td>
+                <td style="text-align: center;"><span class="math inline">UGG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">G</span></td>
+                <td style="text-align: center;"><span class="math inline">GGU, GGC, GGA,
+                        GGG</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">Y</span></td>
+                <td style="text-align: center;"><span class="math inline">UAU,
+                        UAC</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">H</span></td>
+                <td style="text-align: center;"><span class="math inline">CAU,
+                        CAC</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">V</span></td>
+                <td style="text-align: center;"><span class="math inline">GUU, GUC, GUA,
+                        GUG</span></td>
+            </tr>
+            <tr class="odd">
+                <td style="text-align: center;"><span class="math inline">I</span></td>
+                <td style="text-align: center;"><span class="math inline">AUU, AUC,
+                        AUA</span></td>
+            </tr>
+            <tr class="even">
+                <td style="text-align: center;"><span class="math inline">\_</span></td>
+                <td style="text-align: center;"><span class="math inline">UAA, UGA,
+                        UAG</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><strong><u>Note:</u></strong> There are <span class="math inline">20</span> different amino acids plus <span
+            class="math inline">1</span> nonsense codon thus there are <span class="math inline">21</span> possible
+        characters that can be used in
+        the hash.</p>
+    <ul>
+        <li><span style="color:aquamarine;background:none"><strong><em>Biological
+                        Inspiration:</em></strong></span> In the central dogma, mature mRNA is
+            translated/converted into amino acids <span class="math inline">3</span>
+            bases at a time based on the RNA codon (<span class="math inline">3</span> base sequence) the bases form. We
+            drew
+            inspiration from these mRNA codons to encode our mRNA string using the
+            mapping in the table above.</li>
+        <li><span style="color:deeppink;background:none"><strong><em>Property of
+                        Hash Algorithm:</em></strong></span> In this step of the algorithm
+            information about the original string <span class="math inline">s</span>
+            is loss through the degenarcy of the genetic code (some amino acids are
+            mapped to by more than one mRNA codon). This is one of the features that
+            makes the algorithm a <strong>one-way</strong> function.</li>
+    </ul>
+    <p><strong>Running Example:</strong></p>
+    <p><span class="math inline">h =
+            <div style="overflow:scroll;word-wrap: break-word;height:150px;max-width: 50em;">RGDSD_YATRMVFWSCCRRTVFDYWRASCEVIGLGSAVGKPLFTLGNVRHDPGLGDVGP_LLRRSCASALEPAESGFKSVICHQYNLNWV_CARMQESTGGSLEPLAAHRAKDTHVNRLVSAPFPGLPRSLSSPTVSW_YQTYSTTELGTFEGLTRGEAAMAILFSHS___SRSILVPLYEPLSRLITALPEWFGLNSRDYSPV_SARRDASPHTF_SGYLDQVLVMWGDF_VFELPTIRETVSALELWCRSMYNH</div></span>
+    </p>
+</div></center>
+</body>
+</html>

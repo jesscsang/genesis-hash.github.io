@@ -1,59 +1,249 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>test</title>
-	<link rel="stylesheet" href="index.css">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.js" integrity="sha512-9h/FswJ8lwp6Lf5IrbROrJbdPEFx6vGSjf4KUpj6SZwPs9xaFdmgBUHnV2AcM1a+bPJHhEl+faDb5/qtCN+9eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.js" integrity="sha512-WdKCrCGzSenNboZurm+9PhwiWViUwcGF0z0GHrziQi96bNSZdtkCo1cYCIqg4JhZqoppYaBbundeICn684p4Tw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Central Dogma Hash Algorithm</title>
+    <link rel="stylesheet" href="index.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.js"
+        integrity="sha512-9h/FswJ8lwp6Lf5IrbROrJbdPEFx6vGSjf4KUpj6SZwPs9xaFdmgBUHnV2AcM1a+bPJHhEl+faDb5/qtCN+9eg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.js"
+        integrity="sha512-WdKCrCGzSenNboZurm+9PhwiWViUwcGF0z0GHrziQi96bNSZdtkCo1cYCIqg4JhZqoppYaBbundeICn684p4Tw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .hashbtn {
+            background-color: #69e382;
+            border: none;
+            color: #121212;
+            padding: 16px 32px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 4px 2px;
+            opacity: 0.6;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .hashbtn:hover {
+            opacity: 1
+        }
+
+        input[type=text] {
+            width: 350px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            /*background-image: url('images/searchicon1.png');*/
+            background-image: url('images/lock.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            background-size: 25px 25px;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+        .textfield {
+            width: 750px;
+            height: 400px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            padding: 12px 20px 12px 40px;
+        }
+
+        .containerdiv {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-flow: wrap;
+            margin-bottom: 10px;
+        }
+
+        .box {
+            border-radius: 4px;
+            position: relative;
+            width: 20%;
+            height: 120px;
+            color: #121212;
+            background-color: #69e382;
+            margin: 20px;
+            box-sizing: border-box;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+
+        @media screen and (max-width:1200px) {
+            .box {
+                width: 40%;
+            }
+        }
+
+        @media screen and (max-width:600px) {
+            .box {
+                width: 90%;
+            }
+        }
+    </style>
+
+    <script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            var mathElements = document.getElementsByClassName("math");
+            var macros = [];
+            for (var i = 0; i < mathElements.length; i++) {
+                var texText = mathElements[i].firstChild;
+                if (mathElements[i].tagName == "SPAN") {
+                    katex.render(texText.data, mathElements[i], {
+                        displayMode: mathElements[i].classList.contains('display'),
+                        throwOnError: false,
+                        macros: macros,
+                        fleqn: false
+                    });
+                }
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+
 </head>
 
-<body onload="brython()">
-<div style="margin-top:10px;margin-left:10px;">
-	<ul>
-  <li><a href="https://andrew-musa.github.io/cpsc329/index.html" style="color:white;text-decoration: none;">Home</a></li>
-  <li><a href="https://andrew-musa.github.io/cpsc329/about.html" style="color:white;text-decoration: none;">About</a></li>
-</ul>
-</div>
+<body onload="brython()"
+    style="background-color: #121212; font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+    <div style="position:absolute;margin-top:10px;margin-left:10px;z-index:10;font-weight: bold;">
+        <ul>
+            <!--#202124;-->
+            <li><a href="https://andrew-musa.github.io/cpsc329/index.html"
+                    style="color: white;text-decoration: none;">Home</a></li>
+            <li><a href="https://andrew-musa.github.io/cpsc329/overview.html"
+                    style="color: white;text-decoration: none;">Overview</a></li>
+            <li><a href="https://andrew-musa.github.io/cpsc329/statistics.html"
+                    style="color: white;text-decoration: none;">Statistics & Proof</a></li>
+            <!-- <li><a href="https://andrew-musa.github.io/cpsc329/python-implementation.html"
+                    style="color: white;text-decoration: none;">Python Implementation</a></li> -->
+            <li><a href="https://andrew-musa.github.io/cpsc329/supplementary-materials.html"
+                    style="color: white;text-decoration: none;">Supplementary Materials</a></li>
+        </ul>
+    </div>
+    <center>
+        <div class="typed-out" style="position:absolute;margin-top:20%;z-index:5;">
+            <h1 style="color:white;">Central Dogma Hash Algorithm</h1>
+            <h2 style="color:white;">CPSC 329</h2>
+            <h3 style="color:white;">Andrew Musa, Jessy Tseng, Francisco Huayhualla, Haoping Zheng</h3>
+        </div>
+    </center>
+    <video width="100%" height="auto" autoplay loop style="z-index:2;">
+        <source src="images/video.mp4" type="video/mp4">
+        <source src="images/video.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
 
-<div style="margin-left:10px;">
-	<h1>Try the Central Dogma Hash Algorithm for yourself!</h1>
-</div>
+    <!--<div style="margin-left:10px;">
+	<h1>What is the Central Dogma Hash?</h1>
+</div>-->
 
-<input type="text" id="text" placeholder="Enter Password">
-	<button id="btn">Hash!</button></br>
-	<!--<span id="output"></span>-->
-	<div id="field"></div>
-	
-	<p id="text"></p>
-	
-<script type="text/python" id="script0">
+
+    <div class="containerdiv" style="margin: auto;">
+	    <div class="box"></br></br>One-Way Function</div>
+	<div class="box"></br></br>256 Character Digest</div>
+<div class="box" style = "font-size: 18px;"></br></br>prob("collision") =
+            7.1517x10<sup>-308</sup><br>(8 character passwords)</div>
+        <div class="box"></br>Single Thread Brute Force Attack Takes
+            8662232 Years</br>(8 character passwords)</div>
+
+    </div>
+    </br></br>
+
+
+    <div style="margin-left:10px;margin-top: 0;">
+        <center>
+            <h1 style="color:white;">CDHA1-256 Hash Generator</h1>
+        </center>
+    </div>
+
+    <center><input type="text" id="text" placeholder="Enter Text to Hash!"></center></br>
+    <center><button id="btn" class="hashbtn">Hash!</button></br></center></br>
+    <center>
+        <div class="textfield">
+            <div id="field"
+                style="/*width:100%;height:auto;*/height:400px;overflow-x: hidden;word-wrap: break-word;color: black;">
+            </div>
+        </div>
+    </center>
+
+    <p id="text"></p>
+
+    <script type="text/python" id="script0">
 from browser import document
 from math import floor
-	#def show_text(e):
-		#document['output'].textContent = e.target.value;
-	#document['text'].bind('input', show_text)
+
+
+def CDFA1_256_Hash(password):
+    remappedASCII_PW = strToRemappedASCII(password)
+    _hash = appendEvenOrOddIndices(
+        remappedASCII_PW, "even") + appendEvenOrOddIndices(remappedASCII_PW, "odd")
+
+    for i in range(3):
+        _hash = desiredHashLength(_hash)
+        _hash = intronSplicing(_hash)
+    _hash = desiredHashLength(_hash)
+
+    binary = decimalToBin(_hash)
+
+    RNA = binToRNA(binary)
+
+    AA = RNA2aminoAcids(RNA)
+
+    return AA
+
 
 def remappedASCII(ASCII):
+    """
+    95 Printable characters 32 - 126
+    https://en.wikipedia.org/wiki/ASCII
+    https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+    Remaps ASCII value to a unique 12-14 digit value (Tested).
+    """
     LEADING_ZERO = "0"
 
     strASCII = str(ASCII)
 
+    # Use property of strings to separate ASCII digits
     if ASCII < 10:
+        # Single digit ASCII values
         L_0 = L_1 = LEADING_ZERO
         L_2 = strASCII
     elif ASCII < 100:
+        # Two digit ASCII values
         L_0 = LEADING_ZERO
         L_1, L_2 = strASCII
     else:
+        # Three digit ASCII values
         L_0, L_1, L_2 = strASCII
 
+    # Convert separate string digits back to int
     L_0 = int(L_0)
     L_1 = int(L_1)
     L_2 = int(L_2)
 
+    """
+    Before modulus:
+        min = 29124297227663 (14 digits)
+        max = 325620017749655509090396059873 (30 digits)
+    """
     return floor(floor(((L_0+3)**10 + (L_1+3)**10)/3) /
-                 (L_2+3))**3 % (10**14)
+                    (L_2+3))**3 % (10**14)
 
 
 def strToRemappedASCII(string):
@@ -82,6 +272,11 @@ def appendEvenOrOddIndices(str, type="even", length=-1):
 
 
 def intronSplicing(decimal, threshold=14):
+    """
+    5'-GU...AG-3'
+    5'-1001...0010-3'
+    5'-oeeo...eeoe-3'
+    """
     strDecimal = str(decimal)
     dnaLen = len(strDecimal)
     if dnaLen >= 8:
@@ -92,6 +287,7 @@ def intronSplicing(decimal, threshold=14):
         endFound = False
         result = ""
         for i in range(dnaLen-7):
+            # Start of Intron
             if (not startFound and
                 int(strDecimal[i]) % 2 == 1 and
                 int(strDecimal[i+1]) % 2 == 0 and
@@ -99,6 +295,7 @@ def intronSplicing(decimal, threshold=14):
                     int(strDecimal[i+3]) % 2 == 1):
                 startRemove = i
                 startFound = True
+            # End of Intron
             if (startFound and
                 int(strDecimal[i+4]) % 2 == 0 and
                 int(strDecimal[i+5]) % 2 == 0 and
@@ -106,16 +303,29 @@ def intronSplicing(decimal, threshold=14):
                     int(strDecimal[i+7]) % 2 == 0):
                 endRemove = i+7
                 endFound = True
+            # Remove Intron
             if endFound:
                 startFound = False
                 endFound = False
                 introns.append(strDecimal[startRemove:endRemove+1])
         for intron in introns:
             intronLen = len(intron)
+            # Remove intron if resulting string is long enough
             if (dnaLen-intronLen >= threshold):
                 dnaLen -= intronLen
                 strDecimal = strDecimal.replace(intron, "")
     return int(strDecimal)
+def desiredHashLength(_hash, hashLength=256):
+    while _hash < 10**(hashLength*2*3*2):
+        """
+        *2: takes two bits/digits to map to a DNA base 
+        *3: takes three DNA bases to map to a RNA codon
+        *2: double the length as appendEvenOrOddIndices() will reduce the length by at most half
+        """
+        _hash = _hash**3
+
+    _hash = appendEvenOrOddIndices(str(_hash), "odd", hashLength*2*3)
+    return _hash
 
 
 def decimalToBin(decimal):
@@ -124,6 +334,7 @@ def decimalToBin(decimal):
     for i in range(len(strDecimal)):
         binary += str(int(strDecimal[i]) % 2)
     return binary
+
 
 def binToRNA(bin):
     DNA_Result = ""
@@ -137,6 +348,7 @@ def binToRNA(bin):
                 DNA_Result += bin2DnaMap[key]
 
     return DNA_Result
+
 
 def RNA2aminoAcids(RNA):
     aaResult = ""
@@ -172,35 +384,15 @@ def RNA2aminoAcids(RNA):
                 aaResult += RNA_Codons[key]
     return aaResult
 
-def desiredHashLength(_hash, hashLength=256):
-    while _hash < 10**(hashLength*2*3*2):
-        _hash = _hash**3
-
-    _hash = appendEvenOrOddIndices(str(_hash), "odd", hashLength*2*3)
-    return _hash
-
-def genesisHash(password):
-    remappedASCII_PW = strToRemappedASCII(password)
-    _hash = appendEvenOrOddIndices(
-        remappedASCII_PW, "even") + appendEvenOrOddIndices(remappedASCII_PW, "odd")
-
-    for i in range(3):
-        _hash = desiredHashLength(_hash)
-        _hash = intronSplicing(_hash)
-    _hash = desiredHashLength(_hash)
-    binary = decimalToBin(_hash)
-    RNA = binToRNA(binary)
-    AA = RNA2aminoAcids(RNA)
-    return AA
-
 	
 def show_text(e):
 	input = document["text"].value
-	output = genesisHash.__call__(input)
+	output = CDFA1_256_Hash.__call__(input)
 	document["field"].clear()
-	document["field"] <= (f"Hashed value is: {output}")
+	document["field"] <= (f"CDHA1-256 Result {output}")
 document["btn"].bind("click", show_text)
 	
 </script>
 </body>
+
 </html>

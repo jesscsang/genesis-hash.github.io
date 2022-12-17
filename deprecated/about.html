@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>about</title>
+	<link rel="stylesheet" href="index.css">
+	
+	<style>
+		.containerdiv {
+			width: 100%;
+			height: auto;
+			background: white;
+			
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			flex-flow: wrap;
+		}
+		
+		.box {
+			position: relative;
+			width: 20%;
+			height: 100px;
+			background: green;
+			margin: 20px;
+			box-sizing: border-box;
+			text-align: center;
+		}
+		
+		/*.child {
+ 			position: absolute;
+ 			top: 50%;
+  			left: 50%;
+			margin: -50px 0 0 -50px;
+			display: table-cell;
+			vertical-align: middle;
+		}*/
+		
+		@media screen and (max-width:1200px){
+			.box{
+				width: 40%;
+			}
+		}
+		
+		@media screen and (max-width:600px){
+			.box{
+				width: 90%;
+			}
+		}
+	</style>
+	
+</head>
+
+<body>
+<div style="margin-top:10px;margin-left:10px;">
+	<ul>
+  <li><a href="https://andrew-musa.github.io/cpsc329/index.html" style="color: rgb(105, 227, 130);text-decoration: none;">Home</a></li>
+  <!--<li><a href="https://andrew-musa.github.io/cpsc329/test.html" style="color:white;text-decoration: none;">Test</a></li>-->
+  <li><a href="https://andrew-musa.github.io/cpsc329/statistics.html" style="color: rgb(105, 227, 130);text-decoration: none;">Statistcis & Proofs</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/overview.html" style="color: rgb(105, 227, 130);text-decoration: none;">Overview</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/about.html" style="color: rgb(105, 227, 130);text-decoration: none;">About</a></li>
+</ul>
+</div>
+
+<div style="margin-left:10px;">
+	<h1>About the team</h1>
+</div>
+	
+	<div class="containerdiv">
+		
+		<div class="box"><!--<div class="child">One-Way Function</div>--></br></br>One-Way Function</div>
+		<div class="box"><!--<div class="child">256 Character Digest</div>--></br></br>256 Character Digest</div>
+		<div class="box"><!--<div class="child">prob("collision") = 7.1517x10</div>--></br></br>prob("collision") = 7.1517x10</div>
+		<div class="box"><!--<div class="child">Single Thread Brute Force Attack 5108985329 Years!</div>--></br></br>Single Thread Brute Force Attack 5108985329 Years!</div>
+		
+	</div>
+
+</body>
+</html>

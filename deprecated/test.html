@@ -1,5 +1,100 @@
-from time import perf_counter
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<link rel="stylesheet" href="index.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.js" integrity="sha512-9h/FswJ8lwp6Lf5IrbROrJbdPEFx6vGSjf4KUpj6SZwPs9xaFdmgBUHnV2AcM1a+bPJHhEl+faDb5/qtCN+9eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.js" integrity="sha512-WdKCrCGzSenNboZurm+9PhwiWViUwcGF0z0GHrziQi96bNSZdtkCo1cYCIqg4JhZqoppYaBbundeICn684p4Tw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<style>
+		.hashbtn {
+  			background-color: rgb(40, 140, 85);
+  			border: none;
+  			color: white;
+  			padding: 16px 32px;
+  			text-align: center;
+  			font-size: 16px;
+  			margin: 4px 2px;
+  			opacity: 0.6;
+  			transition: 0.3s;
+			border-radius: 5px;
+		}
+		
+		.hashbtn:hover {opacity: 1}
+		
+		input[type=text] {
+ 		width: 350px;
+ 		box-sizing: border-box;
+		border: 2px solid #ccc;
+		border-radius: 4px;
+		font-size: 16px;
+		background-color: white;
+ 		background-image: url('images/searchicon1.png');
+		background-position: 10px 10px; 
+		background-repeat: no-repeat;
+		background-size: 25px 25px;
+		padding: 12px 20px 12px 40px;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+		}
+		
+		.textfield {
+			width: 750px;
+			height: 400px;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: white;
+			padding: 12px 20px 12px 40px;
+		}
+	</style>
+</head>
+
+<body onload="brython()">
+<div style="margin-top:10px;margin-left:10px;">
+	<ul>
+  <li><a href="https://andrew-musa.github.io/cpsc329/index.html" style="color:white;text-decoration: none;">Home</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/test.html" style="color:white;text-decoration: none;">Test</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/statistics.html" style="color:white;text-decoration: none;">Statistcis & Proofs</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/overview.html" style="color:white;text-decoration: none;">Overview</a></li>
+  <li><a href="https://andrew-musa.github.io/cpsc329/about.html" style="color:white;text-decoration: none;">About</a></li>
+</ul>
+</div>
+
+<div style="margin-left:10px;">
+	<h1>Try the Central Dogma Hash Algorithm for yourself!</h1>
+</div>
+
+<center><input type="text" id="text" placeholder="Enter Password"></center></br>
+	<center><button id="btn" class="hashbtn">Hash!</button></br></center></br>
+	<!--<span id="output"></span>-->
+	<center><div class="textfield"><div id="field" style="/*width:100%;height:auto;*/height:400px;overflow-x: hidden;word-wrap: break-word;color: black;"></div></div></center>
+	
+	<p id="text"></p>
+	
+<script type="text/python" id="script0">
+from browser import document
 from math import floor
+
+
+def CDFA1_256_Hash(password):
+    remappedASCII_PW = strToRemappedASCII(password)
+    _hash = appendEvenOrOddIndices(
+        remappedASCII_PW, "even") + appendEvenOrOddIndices(remappedASCII_PW, "odd")
+
+    for i in range(3):
+        _hash = desiredHashLength(_hash)
+        _hash = intronSplicing(_hash)
+    _hash = desiredHashLength(_hash)
+
+    binary = decimalToBin(_hash)
+
+    RNA = binToRNA(binary)
+
+    AA = RNA2aminoAcids(RNA)
+
+    return AA
 
 
 def remappedASCII(ASCII):
@@ -8,13 +103,13 @@ def remappedASCII(ASCII):
     https://en.wikipedia.org/wiki/ASCII
     https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
 
-    Remaps ASCII value to some unique 12-14 digit value (Tested).
+    Remaps ASCII value to a unique 12-14 digit value (Tested).
     """
     LEADING_ZERO = "0"
 
     strASCII = str(ASCII)
 
-    # Use string methods to separate ASCII digits
+    # Use property of strings to separate ASCII digits
     if ASCII < 10:
         # Single digit ASCII values
         L_0 = L_1 = LEADING_ZERO
@@ -38,7 +133,7 @@ def remappedASCII(ASCII):
         max = 325620017749655509090396059873 (30 digits)
     """
     return floor(floor(((L_0+3)**10 + (L_1+3)**10)/3) /
-                 (L_2+3))**3 % (10**14)
+                    (L_2+3))**3 % (10**14)
 
 
 def strToRemappedASCII(string):
@@ -103,13 +198,29 @@ def intronSplicing(decimal, threshold=14):
                 startFound = False
                 endFound = False
                 introns.append(strDecimal[startRemove:endRemove+1])
+
         for intron in introns:
             intronLen = len(intron)
+
+            # Remove intron if resulting string is long enough
             if (dnaLen-intronLen >= threshold):
                 dnaLen -= intronLen
                 strDecimal = strDecimal.replace(intron, "")
 
     return int(strDecimal)
+
+
+def desiredHashLength(_hash, hashLength=256):
+    while _hash < 10**(hashLength*2*3*2):
+        """
+        *2: takes two bits/digits to map to a DNA base 
+        *3: takes three DNA bases to map to a RNA codon
+        *2: double the length as appendEvenOrOddIndices() will reduce the length by at most half
+        """
+        _hash = _hash**3
+
+    _hash = appendEvenOrOddIndices(str(_hash), "odd", hashLength*2*3)
+    return _hash
 
 
 def decimalToBin(decimal):
@@ -168,34 +279,14 @@ def RNA2aminoAcids(RNA):
                 aaResult += RNA_Codons[key]
     return aaResult
 
-
-def desiredHashLength(_hash, hashLength=256):
-    while _hash < 10**(hashLength*2*3*2):
-        """
-        *2: takes two bits/digits to map to a DNA base 
-        *3: takes three DNA bases to map to a RNA codon
-        *2: double the length as appendEvenOrOddIndices() will reduce the length by at most half
-        """
-        _hash = _hash**3
-
-    _hash = appendEvenOrOddIndices(str(_hash), "odd", hashLength*2*3)
-    return _hash
-
-
-def genesisHash(password):
-    remappedASCII_PW = strToRemappedASCII(password)
-    _hash = appendEvenOrOddIndices(
-        remappedASCII_PW, "even") + appendEvenOrOddIndices(remappedASCII_PW, "odd")
-
-    for i in range(3):
-        _hash = desiredHashLength(_hash)
-        _hash = intronSplicing(_hash)
-    _hash = desiredHashLength(_hash)
-
-    binary = decimalToBin(_hash)
-
-    RNA = binToRNA(binary)
-
-    AA = RNA2aminoAcids(RNA)
-
-    return AA
+	
+def show_text(e):
+	input = document["text"].value
+	output = CDFA1_256_Hash.__call__(input)
+	document["field"].clear()
+	document["field"] <= (f"Hashed value is: {output}")
+document["btn"].bind("click", show_text)
+	
+</script>
+</body>
+</html>

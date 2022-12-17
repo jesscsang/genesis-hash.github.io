@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Untitled</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1>Genesis Hash Algorithm Mathematically Formalized</h1>
+
+<ul>
+<li>Let <span class="math inline">s</span> be the input string with
+<span class="math inline">8</span> characters and <span
+class="math inline">h</span> be the output hash with <span
+class="math inline">256</span> characters or a step in the process to
+produce the output hash</li>
+</ul>
+
+
+
+<h2>Step 1: Convert Input String to a Decimal String</h2>
+
+
+<ul>
+<li><p>Takes each character of the input string <span
+class="math inline">s</span> and converts it into its ASCII decimal
+representation and then remaps that number to a unique <span
+class="math inline">12</span>-<span class="math inline">14</span> digit
+value using the following formula below and then concatenates all the
+numbers together in a decimal string <span
+class="math inline">h</span>:</p>
+<ul>
+<li><span class="math display">\lfloor \frac{\lfloor \frac{(L_0+3)^{10}
++ (L_1+3)^{10}}{3} \rfloor}{L_2+3} \rfloor ^3 \text{ mod }
+10^{14}</span></li>
+<li>where <span class="math inline">L_0L_1L_2</span> are the digits in
+the decimal representation of the ASCII character</li>
+<li>if the decimal representation for the ASCII character is:
+<ul>
+<li>two digits a leading zero is added</li>
+<li>single digit two leading zeros are added</li>
+</ul></li>
+</ul>
+<p><strong><u>Note:</u></strong></p>
+
+
+<ul>
+<li>we only care about the <span class="math inline">95</span> printable
+characters of ASCII which have decimal representations from <span
+class="math inline">32</span>-<span class="math inline">126</span></li>
+<li>the formula above has been tested and it indeed maps all <span
+class="math inline">95</span> printable characters to a unique <span
+class="math inline">12</span>-<span class="math inline">14</span> digit
+number</li>
+</ul></li>
+</ul>
+
+
+<h2>Step 2: Partion the Decimal String and Recombine it</h2>
+
+<ul>
+<li>The concatenated decimal string <span class="math inline">h</span>
+is treated like an array then partitioned into two strings <span
+class="math inline">h_{even}</span> and <span
+class="math inline">h_{odd}</span>
+<ul>
+<li><span class="math inline">h_{even}:</span> concatenates the digits
+with an even index</li>
+<li><span class="math inline">h_{odd}:</span> concatenates the digits
+with an odd index</li>
+</ul></li>
+</ul>
+
+
+<p><span class="math display">
+\begin{align}
+h &amp;= h_0h_1...h_n \\
+h_{even} &amp;= h_0h_2...h_{2k} \quad (\text{where }k \in \mathbb{N}) \\
+h_{odd} &amp;= h_1h_3...h_{2k+1} \\
+\end{align}
+</span></p>
+<ul>
+<li>The two strings <span class="math inline">h_{even}</span> and <span
+class="math inline">h_{odd}</span> are added together using integer
+addition to create the decimal string <span class="math inline">h =
+h_{even} + h_{odd}</span>.</li>
+</ul>
+<h2 id="step-3-expand-and-discard-segments-of-the-decimal-string">Step
+3: Expand and Discard Segments of the Decimal String</h2>
+<ul>
+<li>This following steps will be repeated <span
+class="math inline">3</span> times:
+<ul>
+<li><strong>Step 3.1:</strong> the decimal string <span
+class="math inline">h</span> will be cubed <span class="math inline">m
+\in \mathbb{N}</span> times till it is greater than <span
+class="math inline">10^{3072}</span>
+<ul>
+<li><span class="math inline">h^{3^m} &gt; 10^{3072}</span></li>
+</ul></li>
+<li><strong>Step 3.2:</strong> the resulting string <span
+class="math inline">h^{3^m}</span> will be segmented as follows:
+<ul>
+<li><span class="math inline">h = h_0h_1...h_n</span></li>
+<li><span class="math inline">h_{odd} = h_1h_3...h_{3071}</span>
+<ul>
+<li><span class="math inline">|h_{odd}| = 1536</span></li>
+</ul></li>
+</ul></li>
+<li><strong>Step 3.3:</strong> the resulting decimal string <span
+class="math inline">h_{odd}</span> will be processed as follows:
+<ul>
+<li>if <span class="math inline">h_{odd}</span> has a substring that
+start and end with the following sequence of even and odd digits then
+that substring will be removed from <span
+class="math inline">h_{odd}</span> if the resulting string has greater
+than or equal to <span class="math inline">14</span> digits
+<ul>
+<li>Let <span class="math inline">O</span> be an odd digit and <span
+class="math inline">E</span> be an even digit</li>
+<li><strong>Start:</strong> <span class="math inline">OEEO</span></li>
+<li><strong>End:</strong> <span class="math inline">EEOE</span></li>
+</ul></li>
+<li>these segments will be removed in the order they appear as long as
+the resulting string has greater than or equal to <span
+class="math inline">14</span> digits</li>
+<li>eg.
+<ul>
+<li><span class="math inline">h_{odd} =
+9OEEO...EEOE944OEEOEEOE44</span></li>
+<li><span class="math inline">\Rightarrow h_{odd}&#39; =
+9944OEEOEEOE44</span>
+<ul>
+<li>the segment between <span class="math inline">9</span>’s are removed
+as the resulting string will have at least <span
+class="math inline">14</span> digits</li>
+<li>vs the segment between the <span class="math inline">4</span>’s are
+not removed as the resulting string will not have more than <span
+class="math inline">14</span> digits</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>Step 3.4:</strong> the final <span
+class="math inline">h_{odd}</span> string will be fed back into
+<strong>Step 3.1</strong> as <span class="math inline">h</span></li>
+</ul></li>
+</ul>
+<h2 id="step-4-expand-decimal-string-to-desired-length">Step 4: Expand
+Decimal String to Desired Length</h2>
+<ul>
+<li>the decimal string <span class="math inline">h</span> will be cubed
+<span class="math inline">m \in \mathbb{N}</span> times till it is
+greater than <span class="math inline">10^{3072}</span>
+<ul>
+<li><span class="math inline">h^{3^m} &gt; 10^{3072}</span></li>
+</ul></li>
+<li>the resulting string <span class="math inline">h^{3^m}</span> will
+be segmented as follows:
+<ul>
+<li><span class="math inline">h = h_0h_1...h_n</span></li>
+<li><span class="math inline">h_{odd} = h_1h_3...h_{3071}</span>
+<ul>
+<li><span class="math inline">|h_{odd}| = 1536</span> ## Step 5: Convert
+Decimal String into Bit String with the same number of Digits</li>
+</ul></li>
+</ul></li>
+<li>the decimal string <span class="math inline">h</span> will be
+converted into a bit string as follows:
+<ul>
+<li>if a digit is even it will be replaced with <span
+class="math inline">0</span></li>
+<li>if a digit is odd it will be replaced with <span
+class="math inline">1</span></li>
+<li>eg.
+<ul>
+<li><span class="math inline">h = 01654 \Rightarrow h&#39; =
+01010</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2>Step 6: Convert Bit String into RNA String</h2>
+
+
+<ul>
+<li>the bit string will be remapped using the following table:</li>
+</ul>
+
+
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">2-bit string</th>
+<th style="text-align: center;">RNA base</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">00</span></td>
+<td style="text-align: center;"><span class="math inline">A</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">01</span></td>
+<td style="text-align: center;"><span class="math inline">U</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">10</span></td>
+<td style="text-align: center;"><span class="math inline">G</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">11</span></td>
+<td style="text-align: center;"><span class="math inline">C</span></td>
+</tr>
+</tbody>
+</table>
+
+
+
+<h2 id="step-7-convert-rna-string-to-amino-acid-string">Step 7: Convert
+RNA String to Amino Acid String</h2>
+
+
+
+<ul>
+<li>the RNA string will be remapped using the following table</li>
+</ul>
+
+
+
+<table>
+
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">Amino Acid</th>
+<th style="text-align: center;">RNA Codon</th>
+</tr>
+</thead>
+
+
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">A</span></td>
+<td style="text-align: center;"><span class="math inline">GCU, GCC, GCA,
+GCG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">L</span></td>
+<td style="text-align: center;"><span class="math inline">CUU, CUC, CUA,
+CUG, UUA, UUG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">R</span></td>
+<td style="text-align: center;"><span class="math inline">CGU, CGC, CGA,
+CGG, AGA, AGG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">K</span></td>
+<td style="text-align: center;"><span class="math inline">AAA,
+AAG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">AAU,
+AAC</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">M</span></td>
+<td style="text-align: center;"><span
+class="math inline">AUG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">D</span></td>
+<td style="text-align: center;"><span class="math inline">GAU,
+GAC</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">UUU,
+UUC</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">C</span></td>
+<td style="text-align: center;"><span class="math inline">UGU,
+UGC</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">P</span></td>
+<td style="text-align: center;"><span class="math inline">CCU, CCC, CCA,
+CCG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">Q</span></td>
+<td style="text-align: center;"><span class="math inline">CAA,
+CAG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">S</span></td>
+<td style="text-align: center;"><span class="math inline">UCU, UCC, UCA,
+UCG, AGU, AGC</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">E</span></td>
+<td style="text-align: center;"><span class="math inline">GAA,
+GAG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">ACU, ACC, ACA,
+ACG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">E</span></td>
+<td style="text-align: center;"><span class="math inline">GAA,
+GAG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">W</span></td>
+<td style="text-align: center;"><span
+class="math inline">UGG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">G</span></td>
+<td style="text-align: center;"><span class="math inline">GGU, GGC, GGA,
+GGG</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">Y</span></td>
+<td style="text-align: center;"><span class="math inline">UAU,
+UAC</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">H</span></td>
+<td style="text-align: center;"><span class="math inline">CAU,
+CAC</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">V</span></td>
+<td style="text-align: center;"><span class="math inline">GUU, GUC, GUA,
+GUG</span></td>
+</tr>
+
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">I</span></td>
+<td style="text-align: center;"><span class="math inline">AUU, AUC,
+AUA</span></td>
+</tr>
+
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\_</span></td>
+<td style="text-align: center;"><span class="math inline">UAA, UGA,
+UAG</span></td>
+</tr>
+
+</tbody>
+</table>
+
+</body>
+</html>
