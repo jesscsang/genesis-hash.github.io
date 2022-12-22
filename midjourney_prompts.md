@@ -10,3 +10,4 @@ Beautiful landing page amino acid, dna helix, design, ux/ui, ux, ui --ar 3:2 --v
 
 Beautiful landing page phone camera scans pharmaceuticals pills, design, ux/ui, ux, ui --ar 3:2 --v 4 --q 2
 
+Beautiful landing page phone camera scans pharmaceuticals pills, design, ux/ui, ux, ui --seed 553964281 --ar 3:2 --v 4 --q 2 
